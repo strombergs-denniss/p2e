@@ -4,7 +4,7 @@ from setup import setup
 
 arguments = sys.argv
 action = arguments[len(arguments) - 1]
-rootDirectory = os.path.dirname(os.getcwd()) + '/'
+rootDirectory = os.getcwd() + '/'
 setup = setup(rootDirectory)
 
 if action == 'generate_values':
