@@ -16,8 +16,8 @@ To generate values (in root directory):
 
 To generate images (in root directory):
 
-    python ./source/p2e.py generate_values
+    python ./source/p2e.py generate_images
 
 ## Contribute
 
-To contribute open pull request to master branch.
+Currently the image generation is very slow so feel free to improve it, to contribute open pull request to master branch.
