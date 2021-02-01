@@ -14,13 +14,12 @@ def generate_images(setup):
         image_size = file['image_size']
         emote_size = file['emote_size']
         image = Image.open(input_directory + file_name).convert('RGB').resize(image_size)
-
         width, height = image.size
-        file_names = []
+        total_width = width * emote_size[0]
+        total_height = height * emote_size[1]
+        output = Image.new('RGB', (total_width, total_height))
 
         for x in range(width):
-            strip = []
-
             for y in range(height):
                 r, g, b = image.getpixel((x, y))
                 closest_key = ''
@@ -34,19 +33,10 @@ def generate_images(setup):
                         closest_value = distance
                         closest_key = key
 
-                strip.append(closest_key)
-            file_names.append(strip)
+                    if distance == 0:
+                        break
 
-        total_width = width * emote_size[0]
-        total_height = height * emote_size[1]
-        output = Image.new('RGB', (total_width, total_height))
-
-        for x in range(len(file_names)):
-            strip = file_names[x]
-
-            for y in range(len(strip)):
-                file_name = strip[y]
-                image = Image.open(emote_image_directory + file_name).convert('RGB').resize(emote_size)
-                output.paste(image, (x * emote_size[0], y * emote_size[1]))
+                new_mage = Image.open(emote_image_directory + closest_key).convert('RGB').resize(emote_size)
+                output.paste(new_mage, (x * emote_size[0], y * emote_size[1]))
 
         output.save(output_directory + file['file_name'])
